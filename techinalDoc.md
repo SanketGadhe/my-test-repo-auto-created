@@ -1,5 +1,5 @@
 ## Tech Stack
-- Frontend: React Native + TypeScript (Android only, portrait orientation)
+- Frontend: React Native + TypeScript (Android only, portrait mode)
 - Backend: None
 - Database: None
 - Authentication: None
