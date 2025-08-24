@@ -39,4 +39,3 @@ src/
 - **Modularity**: Code is broken down into small, manageable, and independent units.
 - **Scalability**: The structure is designed to accommodate future growth and new features without becoming disorganized.
 - **Discoverability**: Developers can quickly find relevant files based on their function.
-\n
