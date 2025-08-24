@@ -41,4 +41,12 @@
 - **Authentication (Auth):** Auth0
 - **AI Services:** OpenAI API (for data extraction, embeddings, and chat completions)
 - **Hosting:** AWS (e.g., ECS for containers, S3 for static assets, RDS for DB)
+- **CI/CD:** GitHub Actions## Tech Stack
+- **Frontend:** React with TypeScript
+- **Backend:** Python (FastAPI) with LangChain
+- **Database:** PostgreSQL (structured data) + Vector Database (e.g., Pinecone/Weaviate for RAG)
+- **Document Processing:** Python libraries (e.g., `python-docx`, `PyPDF2`) integrated into backend
+- **AI/ML:** OpenAI API (GPT-4) orchestrated by LangChain
+- **Authentication:** Auth0 or Firebase Authentication
+- **Hosting:** AWS Serverless (Lambda, S3, API Gateway)
 - **CI/CD:** GitHub Actions
