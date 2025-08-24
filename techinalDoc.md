@@ -68,3 +68,4 @@ src/
 ├── App.tsx                 # Main application component, global providers (ChakraProvider, Redux Provider), router setup
 └── main.tsx                # Entry point (ReactDOM.render)
 ```
+\n
