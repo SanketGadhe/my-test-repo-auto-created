@@ -33,4 +33,12 @@
 
 1.  **AppHeader:** Application branding, navigation, user controls.
 2.  **AppFooter:** Standard application footer.
-3.  **MainLayout:** Wrapper for overall page layout.
+3.  **MainLayout:** Wrapper for overall page layout.## Tech Stack
+
+- **Frontend (FE):** React + TypeScript
+- **Backend (BE):** Python (FastAPI)
+- **Database (DB):** PostgreSQL
+- **Authentication (Auth):** Auth0
+- **AI Services:** OpenAI API (for data extraction, embeddings, and chat completions)
+- **Hosting:** AWS (e.g., ECS for containers, S3 for static assets, RDS for DB)
+- **CI/CD:** GitHub Actions
