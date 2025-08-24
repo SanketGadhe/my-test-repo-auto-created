@@ -1,5 +1,5 @@
 ## Tech Stack
-- **Frontend:** Kotlin with Jetpack Compose (Native Android)
+- **Frontend:** React Native + TypeScript (Android target)
 - **Backend:** Not Required
 - **Database:** Not Required
 - **Authentication:** Not Required
