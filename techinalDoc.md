@@ -1,9 +1,7 @@
 ## Tech Stack
-
-- Frontend: Kotlin with Android Jetpack Compose
-- Backend: None (all client-side)
-- Database: None
-- Authentication: None
-- Hosting/Distribution: Google Play Store
-- CI/CD: GitHub Actions for automated unit testing and APK build
-- State Management: Android ViewModel
+- FE: React Native + TypeScript
+- BE: Express.js + Node.js (optional, based on backend necessity)
+- DB: SQLite (optional, if local persistence required)
+- Auth: Firebase Authentication (optional)
+- Hosting: Google Play Store
+- CI/CD: GitHub Actions
