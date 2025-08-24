@@ -1,7 +1,8 @@
-## Tech Stack
-- **Frontend:** React Native + TypeScript (Android target, Min API Level 26 - Android 8.0 Oreo)
-- **Backend:** Not Required
-- **Database:** Not Required
-- **Authentication:** Not Required
-- **Hosting:** Google Play Store (for app distribution)
-- **CI/CD:** GitHub Actions
+## Frontend Structure
+### Proposed Folder Structure
+- `src/`: Main application source code
+- `assets/`: Static assets like images, fonts
+- `components/`: Reusable UI components
+- `screens/`: Top-level components representing distinct views/pages
+- `utils/`: Helper functions, constants, and other utilities
+- `navigation/`: Navigation configuration and related components
