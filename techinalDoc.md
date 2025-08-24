@@ -73,4 +73,13 @@
 - **AI/ML:** OpenAI API (GPT-4) orchestrated by LangChain.
 - **Authentication:** Firebase Authentication
 - **Hosting:** AWS Serverless (Lambda, S3, API Gateway) in **Mumbai (ap-south-1) region**.
+- **CI/CD:** GitHub Actions## Tech Stack
+- **Frontend:** React with TypeScript
+- **Backend:** Python (FastAPI) with LangChain on AWS Lambda
+- **Database:** PostgreSQL (structured data) + Vector Database (Pinecone/Weaviate for RAG)
+- **Document Processing:** Python libraries (`python-docx`, `PyPDF2`) for initial parsing, focusing strictly on **English resumes for the first 2 years**. Multi-language support is a future roadmap item.
+- **AI/ML:** OpenAI API (GPT-4) orchestrated by LangChain.
+- **Authentication:** Firebase Authentication
+- **Payment Gateway:** Razorpay (for UPI, internet banking, card payments in India)
+- **Hosting:** AWS Serverless (Lambda, S3, API Gateway, DynamoDB) in **Mumbai (ap-south-1) region**.
 - **CI/CD:** GitHub Actions
