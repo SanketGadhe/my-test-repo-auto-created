@@ -1,32 +1,45 @@
-### 3. Core Shared Components
+### 4. State Management Approach
 
-Based on the single-screen UI and core functional requirements, the following minimal set of reusable UI components are proposed:
+The state management for the Calculator App will be entirely centralized within the `useCalculator` custom hook (`src/hooks/useCalculator.ts`). This hook will encapsulate all core state variables and the logic required to update them based on user interactions.
 
-#### 3.1. Button
-*   **Purpose**: A generic, interactive element for all calculator keys (numbers, operators, clear, equals).
-*   **Key Props**:
-    *   `label: string` (e.g., "7", "+", "C")
-    *   `onPress: (value: string) => void`
-    *   `type?: 'number' | 'operator' | 'action'` (for styling variations)
-    *   `variant?: 'normal' | 'large'` (for size/spanning)
-*   **Location**: `src/components/Button/Button.tsx`
+#### 4.1. Key State Variables
 
-#### 3.2. Display
-*   **Purpose**: Renders the current input or calculation result.
-*   **Key Props**:
-    *   `value: string` (the number or result to show)
-*   **Location**: `src/components/Display/Display.tsx`
+The `useCalculator` hook will manage the following primary state variables using React's `useState`:
 
-#### 3.3. Keypad (Composite Component)
-*   **Purpose**: Arranges and orchestrates multiple `Button` components into the calculator's grid layout, centralizing input handling.
-*   **Key Props**:
-    *   `onButtonPress: (value: string) => void` (callback for any button press within the keypad)
-*   **Location**: `src/components/Keypad/Keypad.tsx`
+*   **`displayValue: string`**: The current value shown on the calculator's display (e.g., "0", "123.45", "Error").
+    *   *Initial Value*: `"0"`
+*   **`firstOperand: number | null`**: Stores the first number of a binary operation, or the result of a previous operation.
+    *   *Initial Value*: `null`
+*   **`operator: string | null`**: Stores the pending mathematical operation (e.g., "+", "-", "x", "÷").
+    *   *Initial Value*: `null`
+*   **`waitingForSecondOperand: boolean`**: A flag indicating if the next numerical input should start a new second operand (`true`) or append to the current `displayValue` (`false`).
+    *   *Initial Value*: `false`
 
-These components promote modularity, reusability, and a clear separation of concerns, contributing to a maintainable and scalable frontend architecture for the single-screen calculator application.
+#### 4.2. Management and Update Mechanics
+
+1.  **`useCalculator` Hook**:
+    *   This hook will internally manage the above state variables.
+    *   It will expose the current `displayValue` to be consumed by the `Display` component.
+    *   It will expose a single public function, `handleButtonPress: (label: string) => void`, which `CalculatorScreen` will pass down to the `Keypad` component.
+
+2.  **`CalculatorScreen` Integration**:
+    *   The `CalculatorScreen` will import and invoke `useCalculator()`.
+    *   It will destructure `displayValue` and `handleButtonPress` from the hook.
+    *   The `displayValue` will be passed as a prop to the `Display` component.
+    *   The `handleButtonPress` function will be passed as a prop to the `Keypad` component, allowing `Keypad` to relay all button presses directly to the central logic.
+
+3.  **State Update Logic within `useCalculator`**:
+    The `handleButtonPress` function will contain the core logic to parse the `label` of the pressed button and update the internal state accordingly:
+
+    *   **Number/Decimal Input**: Appends digits or a decimal point to `displayValue`. Manages `waitingForSecondOperand` to start new numbers after an operator or equals.
+    *   **Operator Input**: If `firstOperand` is `null`, the current `displayValue` becomes `firstOperand`. If an operator is already present, the pending calculation is performed first. The new operator is set, and `waitingForSecondOperand` is set to `true`.
+    *   **Clear ("C")**: Resets `displayValue` to "0" and all other state variables to their initial `null`/`false` values.
+    *   **Equals ("=")**: Parses the `displayValue` as the second operand, performs the calculation using `firstOperand`, `operator`, and the second operand. Updates `displayValue` with the result, sets `firstOperand` to the result, `operator` to `null`, and `waitingForSecondOperand` to `true` for subsequent operations.
+
+This architecture ensures a clear separation between UI (rendering components) and business logic (calculator operations and state management), promoting maintainability and testability.
 
 **ADR Log:**
 
-*   **Decision:** Identified and defined `Button`, `Display`, and `Keypad` as core shared components.
-*   **Context:** PRD requires a single-screen UI with various input types (numbers, operators, clear, equals) and a display for input/results.
-*   **Consequence:** Promotes component reusability, modularity, and a clear separation of UI concerns. This design allows for flexible styling based on button type and efficient management of user input within the `CalculatorScreen`.
+*   **Decision:** Centralized state management within a `useCalculator` custom hook.
+*   **Context:** PRD requires a single-screen calculator with complex input sequences and order-of-operations evaluation. A dedicated hook allows for clean separation of UI and business logic.
+*   **Consequence:** Enhances modularity, testability, and readability of the `CalculatorScreen`. It provides a single source of truth for calculator state and a controlled mechanism for state updates in response to user input. Potential challenges with floating-point precision and advanced chained operations are noted for future consideration if PRD evolves.
