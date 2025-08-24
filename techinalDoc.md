@@ -1,15 +1,32 @@
-### 2. Pages and Routes
+### 3. Core Shared Components
 
-The Calculator App is designed as a single-screen application, strictly adhering to the Product Requirements Document (PRD). Consequently, there are no internal routes or navigation mechanisms within the application.
+Based on the single-screen UI and core functional requirements, the following minimal set of reusable UI components are proposed:
 
-*   **Main Screen**: `CalculatorScreen`
-    *   **Purpose**: This is the sole user interface of the application. It will house all interactive elements including number buttons, operator buttons, clear/equals functions, and the display area for calculations. All user interactions and application state changes will occur entirely within this single view.
-    *   **Location**: `src/screens/CalculatorScreen/CalculatorScreen.tsx`
+#### 3.1. Button
+*   **Purpose**: A generic, interactive element for all calculator keys (numbers, operators, clear, equals).
+*   **Key Props**:
+    *   `label: string` (e.g., "7", "+", "C")
+    *   `onPress: (value: string) => void`
+    *   `type?: 'number' | 'operator' | 'action'` (for styling variations)
+    *   `variant?: 'normal' | 'large'` (for size/spanning)
+*   **Location**: `src/components/Button/Button.tsx`
 
-The application's `App.tsx` component will directly render the `CalculatorScreen`, ensuring that the user immediately lands on the calculator interface upon launch, without any navigation overhead.
+#### 3.2. Display
+*   **Purpose**: Renders the current input or calculation result.
+*   **Key Props**:
+    *   `value: string` (the number or result to show)
+*   **Location**: `src/components/Display/Display.tsx`
+
+#### 3.3. Keypad (Composite Component)
+*   **Purpose**: Arranges and orchestrates multiple `Button` components into the calculator's grid layout, centralizing input handling.
+*   **Key Props**:
+    *   `onButtonPress: (value: string) => void` (callback for any button press within the keypad)
+*   **Location**: `src/components/Keypad/Keypad.tsx`
+
+These components promote modularity, reusability, and a clear separation of concerns, contributing to a maintainable and scalable frontend architecture for the single-screen calculator application.
 
 **ADR Log:**
 
-*   **Decision:** No internal routing or multiple pages; the application will consist solely of `CalculatorScreen`.
-*   **Context:** PRD explicitly states a "single-screen UI" and outlines no additional features requiring separate views (e.g., history, settings).
-*   **Consequence:** Simplifies application architecture, reduces development overhead, and ensures direct compliance with the PRD. Any future expansion requiring multiple views would necessitate a significant architectural change to introduce a navigation library.
+*   **Decision:** Identified and defined `Button`, `Display`, and `Keypad` as core shared components.
+*   **Context:** PRD requires a single-screen UI with various input types (numbers, operators, clear, equals) and a display for input/results.
+*   **Consequence:** Promotes component reusability, modularity, and a clear separation of UI concerns. This design allows for flexible styling based on button type and efficient management of user input within the `CalculatorScreen`.
