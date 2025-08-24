@@ -1,71 +1,41 @@
-\n## Frontend Folder Structure
+\n
+## Frontend Architecture - Folder Structure
 
-The frontend application will strictly follow a feature-driven folder structure, utilizing **React with TypeScript**, **Redux Toolkit** for state management, and **Chakra UI** as the primary design system. This structure is designed for scalability, maintainability, and clear separation of concerns, supporting both public-facing and authenticated areas of the application. Test files will be co-located with the components/modules they test.
+The frontend application will follow a modular and scalable folder structure designed for clarity, maintainability, and extensibility. The core principle is to group files by their type and responsibility.
 
 ```
 src/
-├── assets/                 # Static assets (images, icons, fonts)
+├── api/             # API service definitions, client instances, and related data fetching logic
+├── assets/          # Static assets: images, icons, fonts
 │   ├── images/
 │   ├── icons/
 │   └── fonts/
-├── components/             # Reusable UI components (agnostic to business logic)
-│   ├── ui/                 # Custom generic UI elements or complex compositions of Chakra components (e.g., CustomModal, FormInputGroup)
-│   └── layout/             # General layout components (e.g., Header, Footer, Sidebar, Grid)
-├── config/                 # Application-wide configuration, environment variables, constants
-├── features/               # Feature-specific modules (auth, resume, portfolio, AI assistant)
-│   ├── auth/               # e.g., Login, Registration, Password Reset
-│   │   ├── components/     # Auth-specific UI (e.g., LoginForm, RegisterForm, AuthCard.tsx)
-│   │   ├── hooks/          # Auth-specific logic (e.g., useAuth.ts)
-│   │   ├── services/       # Auth-related API calls (e.g., authService.ts)
-│   │   └── store/          # Feature-specific Redux Toolkit slice (e.g., authSlice.ts)
-│   │   └── AuthCard.test.tsx # Co-located tests
-│   ├── resume-management/  # e.g., Create, Edit, View, Delete Resumes
-│   │   ├── components/     # ResumeCard, ResumeEditor, TemplateSelector
-│   │   ├── hooks/          # useResume, useResumeList
-│   │   ├── services/       # Resume API calls
-│   │   └── store/          # Redux Toolkit slices (e.g., resumeSlice.ts, templatesSlice.ts)
-│   ├── portfolio-management/# e.g., Manage portfolios, projects, showcase
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── services/
-│   │   └── store/
-│   └── ai-assistant/       # e.g., AI generation, analysis, feedback tools
-│       ├── components/
-│       ├── hooks/
-│       ├── services/
-│       └── store/
-├── hooks/                  # Global, reusable custom React hooks (e.g., useDebounce, useLocalStorage.ts)
-├── layouts/                # Overall application layouts for different sections
-│   ├── AuthLayout.tsx      # For login, registration, password reset pages
-│   ├── DashboardLayout.tsx # For authenticated user pages (dashboard, resume management)
-│   └── PublicLayout.tsx    # For public landing page, about, etc.
-├── pages/                  # Top-level route components (compose components from features/components and global components)
-│   ├── public/             # Pages accessible without authentication
-│   │   └── LandingPage.tsx
-│   │   └── AboutPage.tsx
-│   ├── auth/               # Pages for authentication flows
-│   │   └── LoginPage.tsx
-│   │   └── RegisterPage.tsx
-│   ├── app/                # Authenticated application pages
-│   │   ├── DashboardPage.tsx
-│   │   ├── ResumeOverviewPage.tsx
-│   │   └── SettingsPage.tsx
-│   └── NotFoundPage.tsx
-├── services/               # General API client setup, base service calls (e.g., axios instance.ts)
-├── store/                  # Global Redux Toolkit store setup and slices
-│   ├── index.ts            # Root store configuration, combine reducers
-│   ├── slices/             # Global Redux Toolkit slices (e.g., uiSlice.ts for notifications/modals, userSlice.ts for global user state)
-│   └── middlewares/        # Custom Redux middlewares
-├── styles/                 # Global styles, Chakra UI theme extensions, utility classes
-│   ├── theme/              # Chakra UI theme configuration, extensions, custom components styles
-│   ├── base/               # CSS resets, global typography
-│   └── global.css          # Any general global CSS
-├── types/                  # TypeScript type definitions (API, component props, global)
-│   ├── api.d.ts
-│   ├── component.d.ts
-│   └── global.d.ts
-├── utils/                  # General utility functions (formatters, validators, helper functions.ts)
-├── App.tsx                 # Main application component, global providers (ChakraProvider, Redux Provider), router setup
-└── main.tsx                # Entry point (ReactDOM.render)
+├── components/      # Reusable UI components, categorized by their scope and reusability
+│   ├── shared/      # Highly generic components (e.g., Button, Modal, Card, Input)
+│   ├── ui/          # More specific UI elements, often composed of `shared` components (e.g., FormField, DataDisplay, ProgressIndicator)
+│   └── layout/      # Components defining the application's structural layout (e.g., Header, Footer, Sidebar, MainLayout)
+├── config/          # Application-wide configurations: API endpoints, constants, environment variables, feature flags
+├── hooks/           # Custom React hooks for encapsulating and reusing stateful logic
+├── pages/           # Top-level application views, each corresponding to a distinct route
+│   ├── HomePage/         # e.g., src/pages/HomePage/index.tsx, src/pages/HomePage/HomePage.module.css
+│   ├── DashboardPage/
+│   ├── ResumeBuilderPage/
+│   ├── PortfolioAnalysisPage/
+│   ├── AuthPage/
+│   └── NotFoundPage/
+├── styles/          # Global styling: base CSS, variables, themes, utility classes
+│   ├── base.css      # Resets, typography defaults
+│   ├── variables.css # CSS variables for colors, spacing, etc.
+│   └── theme.css     # Theming-related styles
+├── utils/           # General utility functions: formatters, validators, date/time helpers, array manipulation
+├── types/           # TypeScript type definitions and interfaces
+├── App.tsx          # Main application component, typically responsible for routing setup
+├── index.tsx        # Application's entry point (React DOM rendering)
+└── react-app-env.d.ts # TypeScript declaration file for environment variables (if applicable)
 ```
-\n
+
+**Key Principles:**
+- **Separation of Concerns**: Each directory has a clear, singular responsibility.
+- **Modularity**: Code is broken down into small, manageable, and independent units.
+- **Scalability**: The structure is designed to accommodate future growth and new features without becoming disorganized.
+- **Discoverability**: Developers can quickly find relevant files based on their function.
